@@ -3,8 +3,8 @@
   "id": "modid",
   "version": "${version}",
 
-  "name": "vk's updated book doop mod",
-  "description": "book doop and chunk regen",
+  "name": "Book Doop Mod",
+  "description": "vk's book doop and chunk regen mod",
   "authors": [
     "vk",
     "polarbub"
@@ -18,7 +18,7 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
+    "client": [
       "net.polarbub.bookDoop.Main"
     ]
   },
