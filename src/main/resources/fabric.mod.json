@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "bookdoop",
   "version": "${version}",
 
   "name": "Book Doop Mod",

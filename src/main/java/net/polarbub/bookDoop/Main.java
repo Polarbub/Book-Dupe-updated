@@ -1,7 +1,6 @@
 package net.polarbub.bookDoop;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.minecraft.text.LiteralText;
 import static net.fabricmc.fabric.api.client.command.v1.ClientCommandManager.literal;
