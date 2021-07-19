@@ -2,6 +2,10 @@ package net.polarbub.bookDoop;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -19,18 +23,20 @@ import net.minecraft.screen.slot.SlotActionType;
 public class BookDupe {
     private static final ItemStack WRITEABLE_BOOK_STACK = new ItemStack(Items.WRITABLE_BOOK);
     private static final ItemStack DUPE_BOOK_STACK = new ItemStack(Items.WRITABLE_BOOK);
+    private static final List<String> PAGES = new ArrayList<>();
 
     static {
-        // Create large page
+        // Create large page and add it to the pages list
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 65536/3; i++) {
             builder.append((char)2048);
         }
+        PAGES.add(builder.toString());
 
-        // Add page to book
+        // Initialize the item stack
         NbtList pages = new NbtList();
-        pages.addElement(0, NbtString.of(builder.toString()));
-        DUPE_BOOK_STACK.putSubTag("pages", pages);
+        pages.add(NbtString.of(builder.toString()));
+        DUPE_BOOK_STACK.setSubNbt("pages", pages);
     }
 
     private static int createBookInternal(ClientPlayerEntity player) {
@@ -47,7 +53,7 @@ public class BookDupe {
         }
 
         // Update book item
-        player.networkHandler.sendPacket(new BookUpdateC2SPacket(DUPE_BOOK_STACK, true, slot));
+        player.networkHandler.sendPacket(new BookUpdateC2SPacket(slot, PAGES, Optional.of("")));
         return slot;
     }
 
@@ -65,6 +71,7 @@ public class BookDupe {
         map.put(36 + slot, DUPE_BOOK_STACK);
         player.networkHandler.sendPacket(new ClickSlotC2SPacket(
                 player.currentScreenHandler.syncId,
+                player.currentScreenHandler.getRevision(),
                 36 + slot, 0,
                 SlotActionType.THROW,
                 DUPE_BOOK_STACK,

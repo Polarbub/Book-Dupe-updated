@@ -15,7 +15,7 @@ public class Main implements ClientModInitializer {
                     }
                     return 0;
                 }))
-                .then(literal("throw").executes(ctx -> {
+                .then(literal("yeet").executes(ctx -> {
                     if (!BookDupe.createAndThrowBook(ctx.getSource().getPlayer())) {
                         ctx.getSource().sendFeedback(new LiteralText("No writeable book in hotbar"));
                     }
